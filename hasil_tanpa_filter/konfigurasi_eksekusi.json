@@ -1,0 +1,87 @@
+{
+  "tickers": [
+    "BBCA.JK",
+    "BMRI.JK",
+    "BBRI.JK"
+  ],
+  "return_start": "2025-11-10",
+  "return_end": "2026-11-10",
+  "levels": [
+    0.9,
+    0.95,
+    0.99
+  ],
+  "alpha": 0.05,
+  "perlakuan": "tanpa_filter",
+  "M": 10000,
+  "K": 100,
+  "seed": 2024,
+  "window": 120,
+  "V0": 100000000,
+  "convergence_M": [
+    1000,
+    10000,
+    100000
+  ],
+  "allow_missing_intervals": false,
+  "loss_definition": "negative weighted asset log returns; daily linear approximation",
+  "quantile": "linear / Hyndman-Fan type 7",
+  "covariance_ddof": 1,
+  "seed_mapping": {
+    "1": "illustration",
+    "2": "full sample",
+    "3": "convergence keyed by M",
+    "4": "rolling keyed by YYYYMMDD"
+  },
+  "seed_stream_id": 0,
+  "versions": {
+    "numpy": "2.1.3",
+    "pandas": "2.3.0",
+    "scipy": "1.16.3",
+    "statsmodels": "0.14.5",
+    "matplotlib": "3.10.0",
+    "yfinance": "1.7.0",
+    "ipykernel": "6.29.5",
+    "python": "3.11.0"
+  },
+  "source_metadata": {
+    "source": "Yahoo Finance via yfinance",
+    "request": {
+      "tickers": [
+        "BBCA.JK",
+        "BMRI.JK",
+        "BBRI.JK"
+      ],
+      "start": "2025-10-01",
+      "end": "2026-11-11",
+      "interval": "1d",
+      "auto_adjust": false,
+      "back_adjust": false,
+      "actions": true,
+      "repair": false,
+      "keepna": true,
+      "group_by": "column",
+      "multi_level_index": true,
+      "ignore_tz": true
+    },
+    "downloaded_at_utc": "2026-11-15T22:22:25.069718+00:00",
+    "versions": {
+      "numpy": "2.1.3",
+      "pandas": "2.3.0",
+      "scipy": "1.16.3",
+      "statsmodels": "0.14.5",
+      "matplotlib": "3.10.0",
+      "yfinance": "1.7.0",
+      "ipykernel": "6.29.5",
+      "python": "3.11.0"
+    },
+    "sha256_csv": "b7511ce51686ed4bd09a1a8e9686f2f2cf1325ee50ab4f51efabf57ae8b0e2d1"
+  },
+  "n_returns": 240,
+  "n_estimasi_full": 240,
+  "n_removed_full": 0,
+  "convergence_completed": true,
+  "rolling_completed": true,
+  "rolling_run_id": "737743396df70c49b626",
+  "recorded_at_utc": "2026-11-16T01:50:53.834759+00:00"
+}

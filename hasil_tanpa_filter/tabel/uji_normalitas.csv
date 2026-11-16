@@ -1,0 +1,4 @@
+perlakuan,ticker,n,D,p_value_table,p_value_tampil,keputusan_5pct,sifat
+tanpa_filter,BBCA.JK,240,0.10645110162174769,0.0009999999999998899,<= 0.001,Tolak H0,diagnosis seluruh return sah
+tanpa_filter,BMRI.JK,240,0.09954109063703709,0.0009999999999998899,<= 0.001,Tolak H0,diagnosis seluruh return sah
+tanpa_filter,BBRI.JK,240,0.09841993730471055,0.0009999999999998899,<= 0.001,Tolak H0,diagnosis seluruh return sah

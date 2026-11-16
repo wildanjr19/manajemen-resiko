@@ -1,0 +1,37 @@
+{
+  "tujuan": "Diagnosis eksploratif tambahan; tidak mengubah metode notebook utama",
+  "perlakuan": "tanpa_filter",
+  "tickers": [
+    "BBCA.JK",
+    "BMRI.JK",
+    "BBRI.JK"
+  ],
+  "return_start": "2025-11-10",
+  "return_end": "2026-11-10",
+  "tanggal_return_pertama": "2025-11-10",
+  "tanggal_return_terakhir": "2026-11-10",
+  "n_returns": 240,
+  "n_removed": 0,
+  "alpha": 0.05,
+  "uji": [
+    "Shapiro-Wilk",
+    "D'Agostino-Pearson",
+    "Anderson-Darling"
+  ],
+  "aturan_p_value": "Tolak H0 jika p_value < alpha",
+  "aturan_anderson_darling": "Tolak H0 jika statistik > nilai_kritis pada taraf alpha",
+  "catatan_p_value_ad": "Tidak tersedia pada scipy.stats.anderson versi terpasang; CSV dikosongkan",
+  "sha256_input": {
+    "hasil_tanpa_filter/konfigurasi_eksekusi.json": "17cbd8bcf6e5bf85e0caa1d9568c22d40ab17d1962097d77680c956dc42e2d68",
+    "data/processed/return_mentah.csv": "e6628c0bccb5c91c6491ae7aed2aad8fd65de714065359ff2e53c824ccb78fbb",
+    "data/processed/harga_adjusted.csv": "78a9aafc5de30c5f023cedadf780311f0a4c1819f0d109a0eaffb80c13e9f093"
+  },
+  "sha256_script": "d5a85c5e66b3ca489bbb877c659022a91e3566bd4be3fce3633997acf3179675",
+  "versions": {
+    "numpy": "2.1.3",
+    "pandas": "2.3.0",
+    "scipy": "1.16.3"
+  },
+  "python": "3.11.0",
+  "recorded_at_utc": "2026-11-16T02:06:14.878504+00:00"
+}

@@ -1,0 +1,38 @@
+# Lingkungan Python lokal
+.venv/
+venv/
+env/
+
+# Cache Python dan alat pemeriksaan
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Salinan otomatis Jupyter
+.ipynb_checkpoints/
+
+# File sementara, log, dan cadangan kerja lokal
+/tmp/
+*.tmp
+*.log
+
+# Checkpoint rolling yang dapat dibuat ulang
+/hasil_tanpa_filter/checkpoint/
+
+# Konfigurasi rahasia lokal; contoh konfigurasi tetap boleh dilacak
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Metadata sistem operasi
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Notebook, data sumber, tabel, grafik, dan dokumen penelitian tetap dilacak.
