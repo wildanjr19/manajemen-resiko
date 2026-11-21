@@ -1,6 +1,6 @@
 # Keluaran notebook versi artikel
 
-Notebook: [replikasi_var_cvar_artikel.ipynb](../replikasi_var_cvar_artikel.ipynb).
+Notebook: [replikasi_var_cvar_artikel.ipynb](../notebooks/replikasi_var_cvar_artikel.ipynb).
 Versi ini menyiapkan hasil untuk [outline IJAS v0.3](../struktur-artikel/outline_artikel_menrisk_ijas_v03.md).
 Notebook asal dan `hasil_tanpa_filter/` tetap menjadi pembanding.
 

@@ -5,7 +5,7 @@
 **Paper referensi:** Indarwati, E. & Kusumawati, R. (2021). *Aplikasi Metode Simulasi Monte Carlo untuk Menghitung VaR dan CVaR pada Saham PT Bank Negara Indonesia (Persero) Tbk dan PT Bank Tabungan Negara (Persero) Tbk*. Jurnal Matematika, Statistika & Komputasi, Vol. 17 No. 3, 370–380. DOI: 10.20956/j.v17i3.11340
 
 **Rencana data replikasi:** BBCA.JK, BMRI.JK, BBRI.JK; return harian bertanggal 10 November 2025 – 10 November 2026.
-**Status:** metodologi v4, dengan pembaruan ruang lingkup pada 16 November 2026: [replikasi_var_cvar.ipynb](replikasi_var_cvar.ipynb) hanya menganalisis seluruh return sah **tanpa penyaringan nilai ekstrem**. Analisis tersaring ditunda untuk notebook terpisah. Run menghasilkan 240 return dan 120 hari uji rolling. Satu-satunya folder output aktif adalah `hasil_tanpa_filter/` langsung di root proyek; folder `hasil/` lama tidak lagi berada di root proyek. Telaah rumus dan keterbandingan paper tetap berlaku.
+**Status:** metodologi v4, dengan pembaruan ruang lingkup pada 16 November 2026: [replikasi_var_cvar.ipynb](notebooks/replikasi_var_cvar.ipynb) hanya menganalisis seluruh return sah **tanpa penyaringan nilai ekstrem**. Analisis tersaring ditunda untuk notebook terpisah. Run menghasilkan 240 return dan 120 hari uji rolling. Satu-satunya folder output aktif adalah `hasil_tanpa_filter/` langsung di root proyek; folder `hasil/` lama tidak lagi berada di root proyek. Telaah rumus dan keterbandingan paper tetap berlaku.
 **Prioritas:** selesaikan alur utama terlebih dahulu. Bootstrap, Student-t, dan bobot long-only merupakan analisis tambahan.
 
 ---

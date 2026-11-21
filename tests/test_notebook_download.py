@@ -22,7 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class NotebookDownloadTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        notebook = json.loads((ROOT / 'replikasi_var_cvar.ipynb').read_text(encoding='utf-8'))
+        notebook = json.loads((ROOT / 'notebooks' / 'replikasi_var_cvar.ipynb').read_text(encoding='utf-8'))
         cls.source = next(
             ''.join(cell['source']) for cell in notebook['cells']
             if cell['cell_type'] == 'code' and ''.join(cell['source']).startswith('request_spec =')

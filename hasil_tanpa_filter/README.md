@@ -1,6 +1,6 @@
 # Hasil penelitian tanpa filter
 
-Folder ini berisi output aktif dari [`replikasi_var_cvar.ipynb`](../replikasi_var_cvar.ipynb).
+Folder ini berisi output aktif dari [`replikasi_var_cvar.ipynb`](../notebooks/replikasi_var_cvar.ipynb).
 Seluruh return sah dipakai dalam estimasi dan evaluasi, termasuk nilai ekstrem.
 Tidak ada penyaringan outlier pada alur utama.
 
