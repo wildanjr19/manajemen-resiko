@@ -7,7 +7,8 @@ bobot manual BBCA/BMRI/BBRI sebesar 50%/30%/20%. GMV diperbarui dari jendela
 120 return sebelum setiap tanggal prediksi. Dua skema lainnya mempertahankan
 target bobot harian, dengan penyeimbangan kembali tanpa biaya transaksi.
 
-Ketiganya memakai data dan seed identik. Metode Monte Carlo, normal analitik,
+Ketiganya memakai tingkat kepercayaan 95% (ekor kerugian 5%), data, dan seed identik.
+Metode Monte Carlo, normal analitik,
 dan historis menggunakan loss yang sama dalam satu skema; loss antarskema
 dapat berbeda. Seluruh return ekstrem yang sah tetap digunakan.
 

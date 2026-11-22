@@ -16,7 +16,7 @@ htmlcov/
 # Salinan otomatis Jupyter
 .ipynb_checkpoints/
 
-# File sementara, log, dan cadangan kerja lokal
+# File sementara, log, cadangan, dan checkpoint rolling artikel/tiga pembobotan
 /tmp/
 *.tmp
 *.log
@@ -33,7 +33,8 @@ htmlcov/
 /hasil_artikel/grafik/03_acf.png
 /hasil_artikel/grafik/04_bobot.png
 
-# Eksperimen pembobotan: hasil rinci tetap lokal dan dapat dibuat ulang.
+# Eksperimen pembobotan: data olahan dan hasil rinci tetap lokal.
+# Notebook, tabel utama 1-5, grafik, dan metadata eksekusi tetap dilacak.
 /hasil_3_pembobotan/data_processed/
 /hasil_3_pembobotan/tabel/*
 !/hasil_3_pembobotan/tabel/tabel_[1-5]_*.csv

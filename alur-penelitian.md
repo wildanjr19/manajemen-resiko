@@ -395,7 +395,7 @@ Ini bukan bukti final implementasi penulis salah karena rincian simulasi tidak l
 
 ## 7. Rujukan Pendukung Keputusan Operasional
 
-- [Paper referensi lokal](<Paper Referensi/Simulasi Monte Carlo untuk menghitung Var dan CVar.pdf>).
+- [Paper referensi lokal](<Paper Referensi/Paper Referensi - Simulasi Monte Carlo untuk menghitung Var dan CVar.pdf>).
 - [SciPy: bootstrap](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.bootstrap.html), untuk SE sebagai SD distribusi bootstrap.
 - [scikit-learn: common pitfalls dan data leakage](https://scikit-learn.org/stable/common_pitfalls.html), untuk preprocessing yang dipelajari hanya dari pelatihan.
 - [NIST: outliers](https://www.itl.nist.gov/div898/handbook/prc/section1/prc16.htm), untuk penyelidikan observasi ekstrem sebelum penghapusan.

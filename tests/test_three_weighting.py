@@ -33,7 +33,7 @@ class ThreeWeightingTests(unittest.TestCase):
         self.namespace = {
             'np': np, 'pd': pd, 'norm': norm, 'chi2': chi2, 'xlogy': xlogy,
             'json': json, 'time': time, 'datetime': datetime, 'timezone': timezone,
-            'LEVELS': np.array([0.90, 0.95, 0.99]), 'ALPHA': 0.05,
+            'LEVELS': np.array([0.95]), 'ALPHA': 0.05,
             'M': 1000, 'K': 4, 'SEED': 2024, 'WINDOW': 120, 'RESUME_ROLLING': True,
             'TICKERS': ['BBCA.JK', 'BMRI.JK', 'BBRI.JK'],
             'MANUAL_WEIGHTS': {'BBCA.JK': 0.5, 'BMRI.JK': 0.3, 'BBRI.JK': 0.2},
@@ -91,7 +91,7 @@ class ThreeWeightingTests(unittest.TestCase):
             prediction = self.namespace['predict_one_day'](train, realized, date, scheme)
             changed = self.namespace['predict_one_day'](train, realized * 5, date, scheme)
             weights = np.array(prediction['parameters']['weights'])
-            self.assertEqual(len(prediction['predictions']), 9)
+            self.assertEqual(len(prediction['predictions']), 3)
             for row, altered in zip(prediction['predictions'], changed['predictions']):
                 self.assertEqual(row['var'], altered['var'])
                 self.assertAlmostEqual(row['loss'], -realized.to_numpy() @ weights)
