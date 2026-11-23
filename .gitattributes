@@ -1,0 +1,2 @@
+# Hash snapshot di metadata dihitung dari CSV dengan akhir baris CRLF.
+/data/**/yahoo_ohlcv.csv text eol=crlf
