@@ -12,13 +12,15 @@
 
 ## 0. Tujuan dan Batas Penelitian
 
+**Fokus notebook tiga pembobotan:** `notebooks/replikasi_var_cvar_artikel_3_pembobotan.ipynb` menggunakan Monte Carlo sebagai satu-satunya metode estimasi dan backtesting. Rumus normal analitik hanya untuk verifikasi numerik. Notebook terdahulu dan ringkasan hasil paper tetap menjadi arsip. Normalitas diperiksa pada return tiap saham dan return historis tiap portofolio setelah bobot ditentukan; penolakan normalitas dilaporkan sebagai keterbatasan asumsi replikasi, tanpa membuang return ekstrem.
+
 **Usulan judul:** *Replikasi Estimasi VaR dan CVaR Portofolio Saham BBCA, BMRI, dan BBRI Menggunakan Simulasi Monte Carlo pada Data Harian Periode 10 November 2025–10 November 2026*.
 
 Tujuan utama adalah menerapkan pendekatan paper pada objek dan periode berbeda, dengan definisi risiko serta prosedur simulasi yang dapat direproduksi. Pertanyaan penelitian:
 
-1. Berapa VaR dan CVaR satu hari portofolio GMV pada tingkat kepercayaan 90%, 95%, dan 99%?
+1. Berapa VaR dan CVaR satu hari dengan Monte Carlo pada tiga skema pembobotan: GMV, sama rata, dan manual 50/30/20? Notebook tiga pembobotan memakai tingkat kepercayaan 95%.
 2. Seberapa stabil estimasi terhadap jumlah skenario, dan seberapa dekat hasil MC dengan solusi analitik dari model normal yang sama?
-3. Bagaimana cakupan VaR MC, parametrik normal, dan historis pada data di luar sampel ketika seluruh return ekstrem yang sah tetap disertakan?
+3. Bagaimana cakupan VaR Monte Carlo pada data di luar sampel untuk skema GMV, sama rata, dan manual 50/30/20 ketika seluruh return ekstrem yang sah tetap disertakan?
 
 BBCA, BMRI, dan BBRI dipilih sebagai tiga objek saham perbankan untuk mempertahankan konteks sektoral paper sekaligus mengganti komposisi portofolio. Ketiganya tidak disebut sebagai kelompok bank BUMN karena BBCA bukan bank BUMN. Pemilihan ini merupakan studi kasus, bukan bukti keterwakilan seluruh pasar atau hasil seleksi portofolio terbaik. Periode 10 November 2025–10 November 2026 ditetapkan sesuai pembaruan pengguna; jangan mengganti saham/periode berdasarkan hasil normalitas atau backtesting.
 
@@ -64,7 +66,7 @@ Tabel 3.3 melaporkan p-value backtesting: parametrik 0 / 0 / 0, historis 0 / 0 /
 
 Kerangka 11 langkah paper dipertahankan dengan perbaikan notasi dan interpretasi. Urutan bobot dan simulasi ditukar agar dependensi lebih jelas: bobot ditentukan dari data estimasi sebelum digunakan pada skenario. Perubahan objek, keputusan operasional, dan pengembangan evaluasi dijelaskan di §3–4.
 
-**Alur ringkas:** harga dan kualitas data → log return tanpa penyaringan nilai ekstrem → diagnosis distribusi dan waktu → estimasi parameter → bobot GMV → simulasi berkorelasi → loss portofolio → VaR/CVaR dan galat MC → pembanding analitik/historis → backtesting di luar sampel → pembahasan.
+**Alur ringkas:** harga dan kualitas data → log return tanpa penyaringan nilai ekstrem → diagnosis distribusi dan waktu → estimasi parameter → bobot GMV → simulasi berkorelasi → loss portofolio → VaR/CVaR dan galat MC → verifikasi normal analitik → backtesting di luar sampel → pembahasan.
 
 **Notasi:** $d=3$ aset, $T$ observasi return, $M$ skenario per pengulangan, $K=100$ pengulangan, $c$ tingkat kepercayaan, dan $p=1-c$ probabilitas pelanggaran. Taraf signifikansi pengujian ditulis $a=0{,}05$ agar tidak tertukar dengan probabilitas ekor.
 
@@ -131,7 +133,7 @@ Ini pendekatan terhadap return sederhana portofolio untuk horizon harian, bukan 
 
 $$R_p^{(m)}=\sum_{i=1}^d w_i\left(e^{r_i^{(m)}}-1\right).$$
 
-Alur utama memakai $\tilde r_p$ secara konsisten untuk ketiga metode serta loss aktual. Konversi rupiahnya juga merupakan pendekatan. Perhitungan dengan $R_p$ dapat ditambahkan sebagai sensitivitas dengan definisi loss yang disesuaikan bersama pada semua metode.
+Alur utama memakai $\tilde r_p$ secara konsisten untuk Monte Carlo, verifikasi analitik, serta loss aktual. Konversi rupiahnya juga merupakan pendekatan. Perhitungan dengan $R_p$ dapat ditambahkan sebagai sensitivitas dengan definisi loss yang disesuaikan pada simulasi dan loss aktual.
 
 ### Langkah 7 — Estimasi VaR
 
@@ -139,7 +141,7 @@ Definisikan loss relatif $\ell^{(m)}=-\tilde r_p^{(m)}$. Untuk $c\in\{0{,}90;0{,
 
 $$\operatorname{VaR}_c=q_c(\ell)=-q_{1-c}(\tilde r_p).$$
 
-Gunakan estimator kuantil sampel dengan interpolasi linear tipe 7 (Hyndman–Fan) yang sama untuk MC dan historis. Ini estimator kuantil populasi, bukan invers CDF empiris bertangga secara literal. VaR adalah ambang kerugian pada probabilitas tertentu, bukan kerugian maksimum mutlak. Nilai disimpan sebagai desimal dan tidak dipaksa positif jika kuantil loss ternyata negatif.
+Gunakan estimator kuantil sampel dengan interpolasi linear tipe 7 (Hyndman–Fan) untuk Monte Carlo. Ini estimator kuantil populasi, bukan invers CDF empiris bertangga secara literal. VaR adalah ambang kerugian pada probabilitas tertentu, bukan kerugian maksimum mutlak. Nilai disimpan sebagai desimal dan tidak dipaksa positif jika kuantil loss ternyata negatif.
 
 Contoh konvensi: VaR 95% memakai kuantil 95% **loss**, setara negatif kuantil 5% **return**. Kuantil 95% return justru berada di ekor keuntungan; istilah “kuartil” pada uraian paper dibaca sebagai kuantil/persentil sesuai tingkat yang dimaksud.
 
@@ -167,7 +169,7 @@ Jika CVaR historis kelak ditambahkan, atau ukuran simulasi diubah sehingga $M(1-
 
 $$\widehat{\operatorname{ES}}_c=\frac{\sum_{k=1}^{j}\ell_{[k]}+(h-j)\ell_{[j+1]}}{h}.$$
 
-Jika $h$ bulat, suku pecahan dihilangkan. Pembobotan ini juga menangani nilai berulang di ambang. Sekadar merata-ratakan semua observasi yang melampaui kuantil terinterpolasi tidak selalu menghasilkan ES empiris yang tepat, bahkan tanpa ties bila $h$ tidak bulat. CVaR historis tetap merupakan tambahan; pembanding utama historis pada penelitian ini adalah VaR.
+Jika $h$ bulat, suku pecahan dihilangkan. Pembobotan ini juga menangani nilai berulang di ambang. Sekadar merata-ratakan semua observasi yang melampaui kuantil terinterpolasi tidak selalu menghasilkan ES empiris yang tepat, bahkan tanpa ties bila $h$ tidak bulat. Metode historis berada di luar cakupan notebook tiga pembobotan yang berfokus pada Monte Carlo.
 
 ### Langkah 9 — Mengulangi simulasi
 
@@ -280,7 +282,7 @@ Student-t multivariat merupakan tambahan setelah alur utama selesai. Jika diguna
 - Bandingkan $M=1.000$, $10.000$, dan $100.000$ pada estimasi penuh dengan pengulangan independen. Laporkan perubahan estimasi dan SE. Sekitar 100 skenario ekor pada level 99% per pengulangan belum menjamin CVaR stabil.
 - Bandingkan rata-rata MC dengan VaR/CVaR analitik Langkah 7–8. Selisih besar dibanding galat MC harus diperiksa sebelum hasil dipakai. Galat MC kecil juga tidak menghilangkan bias estimator kuantil/ekor pada $M$ terbatas.
 
-Normal multivariat dan portofolio linear menghasilkan distribusi risiko yang sama untuk MC dan parametrik. Keduanya seharusnya mendekat saat skenario bertambah. Pelanggaran masih dapat berbeda jika loss aktual dekat ambang; keunggulan sistematis MC tidak diasumsikan.
+Normal multivariat dan portofolio linear menghasilkan distribusi risiko yang sama untuk MC dan parametrik. Keduanya seharusnya mendekat saat skenario bertambah. Rumus analitik dipakai sebagai pemeriksaan numerik; backtesting utama hanya mengevaluasi VaR Monte Carlo.
 
 GBM cukup sebagai konteks teori. Implementasi utama langsung mensimulasikan log return satu hari; jangan menambahkan koreksi drift GBM pada mean log return sampel atau membangun jalur harga yang tidak diperlukan.
 
@@ -288,19 +290,19 @@ GBM cukup sebagai konteks teori. Implementasi utama langsung mensimulasikan log 
 
 Gunakan GMV tanpa kendala short selling sebagai utama. Secara numerik, selesaikan $\hat\Sigma\mathbf v=\mathbf1$, lalu $\mathbf w=\mathbf v/(\mathbf1'\mathbf v)$; invers eksplisit tidak diperlukan.
 
-Untuk tabel penuh, bobot dihitung sekali dari seluruh return sah. Pada rolling, hitung ulang dari jendela pelatihan setiap tanggal dan gunakan untuk prediksi serta loss aktual hari berikutnya. Ketiga metode memakai bobot identik pada setiap tanggal prediksi.
+Untuk tabel penuh, bobot dihitung sekali dari seluruh return sah. Pada rolling, hitung ulang dari jendela pelatihan setiap tanggal dan gunakan untuk prediksi serta loss aktual hari berikutnya. Prediksi Monte Carlo dan loss aktual memakai bobot skema yang sama pada setiap tanggal prediksi.
 
 Ini strategi dengan pembaruan bobot harian untuk evaluasi satu hari, bukan buy and hold sepanjang tahun. Pada buy and hold, jumlah saham tetap dan bobot nilai pasar berubah. Biaya transaksi, biaya short selling, dan likuiditas tidak dimodelkan; hasil bukan kinerja neto setelah biaya.
 
 Jika ada bobot negatif, jelaskan posisi short dan eksposur bruto $\sum_i|w_i|$. GMV long-only merupakan tambahan: minimalkan $w'\hat\Sigma w$, dengan $w_i\ge0$ dan $\sum_iw_i=1$.
 
-### D7 — Definisi risiko dan metode pembanding
+### D7 — Fokus Monte Carlo dan verifikasi analitik
 
-- **Monte Carlo:** kuantil loss skenario dan rata-rata ekor, dirata-ratakan dari 100 pengulangan.
-- **Parametrik normal:** rumus analitik Langkah 7; CVaR analitik untuk pemeriksaan simulasi.
-- **Historis:** bentuk loss dari return sampel estimasi dengan bobot prediksi yang sama, lalu ambil kuantil empiris loss.
+- **Monte Carlo:** satu-satunya metode estimasi VaR/CVaR dan backtesting VaR pada notebook tiga pembobotan. Kuantil loss skenario dan rata-rata ekor dirata-ratakan dari 100 pengulangan.
+- **Normal analitik:** rumus Langkah 7–8 hanya untuk verifikasi numerik dan konvergensi Monte Carlo, bukan metode yang dibandingkan dalam backtesting.
+- **Tiga skema pembobotan:** GMV, sama rata, dan manual 50/30/20. Perbandingan penelitian berfokus pada skema pembobotan.
 
-Pada rolling, semua metode memakai seluruh 120 return sah dalam jendela yang sama, serta definisi loss dan tanggal evaluasi yang sama. Pada level 99% dengan sekitar 120 observasi, kuantil historis ditentukan sangat sedikit titik ekor sehingga interpolasi berpengaruh.
+Pada rolling, Monte Carlo memakai seluruh 120 return sah sebelumnya untuk setiap skema. Bobot prediksi juga dipakai untuk menghitung loss aktual. Metode historis tidak disertakan. Pembahasan metode pembanding pada ringkasan paper tetap mencatat isi sumber aslinya.
 
 Periksa urutan VaR/CVaR antar tingkat kepercayaan dan $\operatorname{CVaR}_c\ge\operatorname{VaR}_c$. Ini pemeriksaan konsistensi, bukan bukti kesesuaian model dengan data.
 
@@ -323,17 +325,17 @@ Gunakan rolling window **120 observasi return mentah**. Untuk setiap tanggal $t$
 1. Ambil return $t-120$ sampai $t-1$, tanpa informasi tanggal $t$ atau sesudahnya.
 2. Pertahankan seluruh 120 return sah dalam jendela tanpa penyaringan nilai ekstrem, mengikuti D3.
 3. Estimasi parameter dan bobot. Periksa ukuran sampel dan kovarian. Jika estimasi gagal, hentikan dan periksa penyebab; jangan melewati tanggal diam-diam.
-4. Hitung VaR satu hari dengan parametrik, historis, dan MC. MC memakai 10.000 skenario × 100 pengulangan per tanggal.
+4. Hitung VaR satu hari dengan Monte Carlo untuk setiap skema pembobotan. MC memakai 10.000 skenario × 100 pengulangan per tanggal.
 5. Hitung loss aktual menggunakan bobot prediksi yang sama. Tanggal uji dengan return ekstrem yang sah tetap dinilai.
 6. Catat VaR, loss, indikator pelanggaran, bobot, dan ukuran sampel estimasi. Geser satu tanggal dan ulangi.
 
-Jika tersedia $T$ return sah dan semua prediksi berhasil, jumlah uji $n=T-120$. Laporkan jumlah aktual, bukan menjanjikan tepat 120 hari uji. Semua metode dievaluasi pada tanggal dan loss aktual identik. Dalam pengembangan tersaring nanti, perubahan penyaringan juga dapat mengubah bobot sehingga perbandingan tersebut menilai dua prosedur pembentukan portofolio.
+Jika tersedia $T$ return sah dan semua prediksi berhasil, jumlah uji $n=T-120$. Laporkan jumlah aktual, bukan menjanjikan tepat 120 hari uji. Ketiga skema dievaluasi pada tanggal yang sama; loss aktual masing-masing skema mengikuti bobotnya. Dalam pengembangan tersaring nanti, perubahan penyaringan juga dapat mengubah bobot sehingga perbandingan tersebut menilai dua prosedur pembentukan portofolio.
 
-Laporkan per metode dan level pada analisis tanpa filter: $n$, pelanggaran aktual $x$, **jumlah pelanggaran harapan $np$**, proporsi $x/n$, $LR_{\mathrm{POF}}$, p-value, serta keputusan pada taraf 5%.
+Laporkan per skema pembobotan dan level untuk Monte Carlo tanpa filter: $n$, pelanggaran aktual $x$, **jumlah pelanggaran harapan $np$**, proporsi $x/n$, $LR_{\mathrm{POF}}$, p-value, serta keputusan pada taraf 5%.
 
-**In-sample sebagai pembanding:** estimasi penuh dan evaluasi pada seluruh return sah dengan bobot penuh. Labeli sebagai kecocokan dalam sampel, bukan kemampuan prediksi. Kuantil historis yang diuji pada data pembentuknya cenderung memiliki cakupan dekat nominal; ini bukan bukti keunggulan prediksi.
+**In-sample sebagai pembanding:** estimasi penuh dan evaluasi pada seluruh return sah dengan bobot penuh. Labeli sebagai kecocokan dalam sampel, bukan kemampuan prediksi.
 
-**Batas interpretasi:** pada 99% dan $n\approx120$, pelanggaran harapan sekitar 1,2. Bukti statistik terbatas dan pendekatan chi-square Kupiec asimtotik. Gunakan “tidak menolak kesesuaian frekuensi pelanggaran”, bukan “membuktikan model valid”. Kupiec tidak memvalidasi CVaR atau independensi pelanggaran. Jangan mengurutkan model sebagai paling akurat hanya berdasarkan p-value terbesar; baca juga frekuensi pelanggaran, arah penyimpangan, dan kedekatan MC dengan solusi analitik. Simpulan pada banyak metode/level bersifat eksploratif dan tidak diperlakukan sebagai satu pengujian konfirmatori tunggal.
+**Batas interpretasi:** pada 99% dan $n\approx120$, pelanggaran harapan sekitar 1,2. Bukti statistik terbatas dan pendekatan chi-square Kupiec asimtotik. Gunakan “tidak menolak kesesuaian frekuensi pelanggaran”, bukan “membuktikan model valid”. Kupiec tidak memvalidasi CVaR atau independensi pelanggaran. Jangan mengurutkan model sebagai paling akurat hanya berdasarkan p-value terbesar; baca juga frekuensi pelanggaran, arah penyimpangan, dan kedekatan MC dengan solusi analitik. Simpulan pada banyak skema/level bersifat eksploratif dan tidak diperlakukan sebagai satu pengujian konfirmatori tunggal.
 
 **Pelengkap opsional:** uji binomial eksak dua sisi pada $x$ dari $n$ dengan peluang $p=1-c$ dapat memperlihatkan sensitivitas keputusan terhadap pendekatan asimtotik, terutama pada 99%. Uji ini tetap mengasumsikan percobaan Bernoulli independen dan tidak mengatasi pelanggaran yang mengelompok. Tampilkan deret waktu loss/VaR dan tanggal pelanggaran; uji independensi Christoffersen dapat ditambahkan bila jumlah transisi memadai. Jika evaluasi 99% ingin diperkuat kelak, perluas periode data sebelum analisis ulang; jangan menganggap simulasi lebih banyak memperbesar jumlah hari uji.
 
@@ -369,7 +371,7 @@ Ini bukan bukti final implementasi penulis salah karena rincian simulasi tidak l
 | 3 | Estimasi parameter dan GMV tanpa penyaringan | Statistik deskriptif, kovarian, korelasi, bobot |
 | 4 | Simulasi utama, pemeriksaan analitik, dan konvergensi | Hasil per pengulangan dan tabel pemeriksaan |
 | 5 | Hitung VaR/CVaR 90/95/99, SD pengulangan, dan SE rata-rata MC | Tabel utama dengan definisi SE eksplisit |
-| 6 | Rolling ketiga metode tanpa penyaringan | Prediksi per tanggal, pelanggaran, tabel Kupiec |
+| 6 | Rolling Monte Carlo pada tiga skema tanpa penyaringan | Prediksi per tanggal, pelanggaran, tabel Kupiec |
 | 7 | Kecocokan in-sample dan ilustrasi Rp 100 juta | Tabel deskriptif dan interpretasi rupiah |
 | 8 | Setelah utama selesai, kerjakan tambahan yang dipilih | Bootstrap, Student-t, long-only, atau return sederhana eksak |
 | 9 | Tulis laporan dan keterbatasan | Laporan akhir serta paket reproduksi |

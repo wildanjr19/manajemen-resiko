@@ -1,5 +1,7 @@
 {
-  "source_notebook": "replikasi_var_cvar_artikel.ipynb",
+  "source_notebook": "replikasi_var_cvar_artikel_3_pembobotan.ipynb",
+  "estimation_method": "Monte Carlo",
+  "analytic_role": "numerical_verification_only",
   "tickers": [
     "BBCA.JK",
     "BMRI.JK",
@@ -93,9 +95,9 @@
   "convergence_completed": true,
   "rolling_completed": true,
   "rolling_run_ids": {
-    "GMV": "dd9d3128aff7cace61c9",
-    "Sama rata": "8572a2b8c4d18d851c3e",
-    "Manual 50/30/20": "1d41ec86f7882089692a"
+    "GMV": "1a73e930130a31cec90a",
+    "Sama rata": "427608b60fd87561976a",
+    "Manual 50/30/20": "b99182b081dd559b5910"
   },
-  "recorded_at_utc": "2026-11-22T01:09:16.688067+00:00"
+  "recorded_at_utc": "2026-11-24T04:10:41.651497+00:00"
 }
